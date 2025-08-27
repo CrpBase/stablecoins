@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Pre-Trillions Score</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <h1>YOUR PRE-TRILLIONS SCORE</h1>
+  </header>
+
+  <main class="hero">
+    <section class="left-panel">
+      <div class="demo-wrap" id="demoWrap">
+        <div class="demo-card" id="demoCard">
+          <div class="demo-badge">1000</div>
+          <div class="demo-screen">
+            <div class="scanline"></div>
+            <div class="grid"></div>
+          </div>
+        </div>
+      </div>
+      <p class="lead caps">CREATE YOUR SCORE NOW, GET YOUR UNIQUE ACHIEVEMENTS!</p>
+      <button class="cyber-btn" id="ctaBtn">
+        <span>CREATE MY SCORE CARD</span>
+      </button>
+    </section>
+
+    <section class="right-panel">
+      <div class="slider" id="slider">
+        <div class="r-card active">Card 1</div>
+        <div class="r-card">Card 2</div>
+        <div class="r-card">Card 3</div>
+        <div class="r-card">Card 4</div>
+        <div class="r-card">Card 5</div>
+      </div>
+    </section>
+  </main>
+
+  <div class="spacer"></div>
+
+  <section class="how reveal-group" id="how">
+    <h3 class="reveal">How it works</h3>
+    <div class="steps">
+      <div class="step reveal"><span class="step-num">1</span><p>Enter nickname</p></div>
+      <div class="step reveal"><span class="step-num">2</span><p>Enter your wallet</p></div>
+      <div class="step reveal"><span class="step-num">3</span><p>Mint your Score Card</p></div>
+    </div>
+  </section>
+
+  <footer class="site-footer reveal-group" id="footer">
+    <div class="links">
+      <a class="link-btn reveal" href="https://plasma.to/" target="_blank" rel="noreferrer">Website</a>
+      <a class="link-btn reveal" href="https://x.com/PlasmaFDN" target="_blank" rel="noreferrer">Twitter</a>
+      <a class="link-btn reveal" href="https://discord.gg/plasmafdn" target="_blank" rel="noreferrer">Discord</a>
+      <a class="link-btn reveal" href="https://docs.plasma.to/" target="_blank" rel="noreferrer">Docs</a>
+    </div>
+    <p class="made-with reveal" id="madeWith">Build for Plasma with <span class="love">Love</span></p>
+  </footer>
+
+  <!-- Wizard modal -->
+  <div id="wizard" class="wizard hidden" aria-hidden="true">
+    <div class="wizard-panel">
+      <button class="wizard-close" id="wClose" aria-label="Close">×</button>
+
+      <!-- Step 1: discord name -->
+      <div class="wizard-step" data-step="1">
+        <h3 class="w-title">Enter your Discord name on Plasma</h3>
+        <label class="w-label">Discord name</label>
+        <input id="discordInput" class="w-input" type="text"
+               placeholder="e.g. crpbase"
+               autocomplete="off" autocorrect="off" autocapitalize="off"
+               spellcheck="false" inputmode="text"/>
+        <div class="w-actions">
+          <button class="w-btn primary" id="wNext1">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 2: ONLY role reveal -->
+      <div class="wizard-step hidden" data-step="2">
+        <h3 class="w-title">Your Role</h3>
+        <div class="role-reveal">
+          <div id="roleText" class="role-epic">...</div>
+
+          <div id="manualRoleWrap" class="manual hidden">
+            <p class="warn">Testnet: We couldn't find your data. Enter manually.</p>
+            <label class="w-label">Select role</label>
+            <select id="roleSelect" class="w-input">
+              <option value="Plasma OG 👑">Plasma OG 👑</option>
+              <option value="SC Contributor">SC Contributor</option>
+              <option value="Early Contributor">Early Contributor</option>
+              <option value="Verified">Verified</option>
+            </select>
+            <div class="w-actions" style="justify-content:flex-start; margin-top:12px">
+              <button class="w-btn primary" id="revealManualRole">Reveal</button>
+            </div>
+          </div>
+        </div>
+        <div class="w-actions">
+          <button class="w-btn" id="wBack2">Back</button>
+          
+          <button class="w-btn primary" id="wNext2" disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- Step 3: ONLY join date + trillions -->
+      <div class="wizard-step hidden" data-step="3">
+        <h3 class="w-title">Stats</h3>
+        <div class="stats-epic" id="joinText">Joined: ...</div>
+        <div class="stats-epic">Trillions typed: <span id="trillionsSpin">000</span></div>
+        <div class="w-actions">
+          <button class="w-btn" id="wBack3">Back</button>
+          
+          <button class="w-btn primary" id="wNext3" disabled>Next</button>
+        </div>
+      </div>
+
+      <!-- Step 4: wallet input -->
+      <div class="wizard-step hidden" data-step="4">
+        <h3 class="w-title">Enter your wallet address</h3>
+        <label class="w-label">Wallet (EVM)</label>
+        <input id="walletInput" class="w-input" type="text" placeholder="0x..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+        <div class="w-actions">
+          <button class="w-btn" id="wBack4">Back</button>
+          <button class="w-btn primary" id="wNext4">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Stablecoin % result -->
+      <div class="wizard-step hidden" data-step="5">
+        <h3 class="w-title">Stablecoins in your wallet</h3>
+        <div id="stableResult" class="big-percent">...</div>
+        <p class="hint">Це частка стейблкоїнів від загальної вартості портфеля</p>
+        <div class="w-actions">
+          <button class="w-btn" id="wBack5">Back</button>
+          <button class="w-btn primary" id="wFinish">Finish</button>
+        </div>
+      </div>
+</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
